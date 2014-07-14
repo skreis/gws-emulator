@@ -12,6 +12,7 @@
     "engines": {
         "node": ">=0.8.0"
     },
-    "name": "genesys-node-chat",
+    "name": "gws-emulator",
+    "url" : "https://github.com/skreis/gws-emulator",
     "version": "0.1.0"
 }

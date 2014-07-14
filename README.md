@@ -23,10 +23,14 @@ Once started, two subdirectories will be created `logs` and `chats`.  In them yo
 ```
 .
 +-- README.md
-+-- manager.js
-+-- server.js
-+-- logs/
-+-- chats/
++-- client/
++-- server/
+  +-- log4js.json
+  +-- manager.js
+  +-- package.json
+  +-- server.js
+  +-- logs/
+  +-- chats/
 ```
 
 
