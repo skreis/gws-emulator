@@ -203,6 +203,17 @@ POST /api/v2/chats/:id
 
 This request returns the specified chat resource. Send this request periodically to keep state up to date.
 
+```
+GET /api/v2/chats/:id
+```
+
+**Parameters**
+
+| Name | Type | Value |
+|:-----|------|-------|
+| *N/A* | *N/A* | *N/A* |
+
+
 **Capabilities**
 
 The `capabilities` property of the chat resource provides an array of operation names that are valid for the current state of the chat.
@@ -217,16 +228,6 @@ The `state` property of the chat resource can have one of the following values:
    * `WaitingForAgent` - agent not yet joined
    * `Chatting` - agent has joined, chat has begun
    * `Idle` - user has disconnected
-
-```
-GET /api/v2/chats/:id
-```
-
-**Parameters**
-
-| Name | Type | Value |
-|:-----|------|-------|
-| *N/A* | *N/A* | *N/A* |
 
 **Example**
 
@@ -266,15 +267,6 @@ GET /api/v2/chats/652492d9-c2d9-44c9-b9ad-0ab7984114bb
 
 Send this request periodically to retrieve new chat messages. By specifying the index parameter, previous messages can be recovered (ex. index=0 will return all messages).
 
-**Types**
-
-The `type` property can contain any of the following values:
-  * Text
-  * ParticipantJoined
-  * ParticipantLeft
-  * TypingStarted
-  * TypingStopped
-
 ```
 GET /api/v2/chats/:id/messages
 ```
@@ -284,6 +276,15 @@ GET /api/v2/chats/:id/messages
 | Name | Type | Value |
 |:-----|------|-------|
 | index | int | **Optional**. The index of the first entry to return. If not specified, will return messages that the client has not received yet. |
+
+**Types**
+
+The `type` property can contain any of the following values:
+  * Text
+  * ParticipantJoined
+  * ParticipantLeft
+  * TypingStarted
+  * TypingStopped
 
 **Example**
 
