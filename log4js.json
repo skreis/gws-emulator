@@ -1,0 +1,13 @@
+{
+    "appenders": [
+        {
+            "type": "console"
+        },
+        {
+            "filename": "logs/chat.log",
+            "maxLogSize": 1,
+            "pattern": "-yyyy-MM-dd",
+            "type": "dateFile"
+        }
+    ]
+}
