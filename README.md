@@ -1,16 +1,24 @@
-# GWS Chat Server
+# GWS Chat
+
+Unlike the majority of APIs exposed by Genesys Web Services, this API is intended to be used by customers to submit chat requests to agents, opposed to being used by users known to GWS (agents, supervisors, etc.).
 
 ## RESTful API
 
+### Authentication
+
+When utilizing the GWS Chat Service, an `apikey` header is required to initiate a chat session and participate in the chat thread.  The `apikey` header is the constant value `N18TFGbKpn0zaGLXDFZhPWpTcB2eyx44`.
+
+### Resources
+
 * [RequestChat](#requestchat)
 * [SendStartTypingNotification](#sendstarttypingnotification)
-* [SendStopTypingNotificaiton](#sendstoptypingnotification)
+* [SendStopTypingNotification](#sendstoptypingnotification)
 * [SendMessage](#sendmessage)
 * [Complete](#complete)
 * [GetChat](#getchat)
 * [GetTranscript](#gettranscript)
 
-### RequestChat ##
+### RequestChat
 
 #### Overview
 
@@ -51,7 +59,7 @@ POST /api/v2/chats
 }
 ```
 
-### SendStartTypingNotification ##
+### SendStartTypingNotification
 
 #### Overview
 
@@ -85,7 +93,7 @@ POST /api/v2/chats/:id
 }
 ```
 
-### SendStopTypingNotification ##
+### SendStopTypingNotification
 
 #### Overview
 
@@ -119,7 +127,7 @@ POST /api/v2/chats/:id
 }
 ```
 
-### SendMessage ##
+### SendMessage
 
 #### Overview
 
@@ -155,7 +163,7 @@ POST /api/v2/chats/:id
 }
 ```
 
-### Complete ##
+### Complete
 
 #### Overview
 
@@ -189,11 +197,26 @@ POST /api/v2/chats/:id
 }
 ```
 
-### GetChat ##
+### GetChat
 
 #### Overview
 
 This request returns the specified chat resource. Send this request periodically to keep state up to date.
+
+**Capabilities**
+
+The `capabilities` property of the chat resource provides an array of operation names that are valid for the current state of the chat.
+
+**Participants**
+
+The `participants` property will include details of all known chat participants.
+
+**States**
+
+The `state` property of the chat resource can have one of the following values:
+   * `WaitingForAgent` - agent not yet joined
+   * `Chatting` - agent has joined, chat has begun
+   * `Idle` - user has disconnected
 
 ```
 GET /api/v2/chats/:id
@@ -237,11 +260,20 @@ GET /api/v2/chats/652492d9-c2d9-44c9-b9ad-0ab7984114bb
 }
 ```
 
-### GetTranscript ##
+### GetTranscript
 
 #### Overview
 
 Send this request periodically to retrieve new chat messages. By specifying the index parameter, previous messages can be recovered (ex. index=0 will return all messages).
+
+**Types**
+
+The `type` property can contain any of the following values:
+  * Text
+  * ParticipantJoined
+  * ParticipantLeft
+  * TypingStarted
+  * TypingStopped
 
 ```
 GET /api/v2/chats/:id/messages
@@ -302,7 +334,7 @@ GET /api/v2/chats/652492d9-c2d9-44c9-b9ad-0ab7984114bb/messages
 
 ## Sample Client / Server
 
-The following are example client & sample server applications which can be used to emulate the capability of the HTCC e-Services chat server.  Chat threads are persisted to disk and therefore the server can be restarted without fear of losing data.
+The following are example client & sample server applications which can be used to emulate the capability of the HTCC e-Services chat server.  Chat threads are persisted to disk and therefore the server can be restarted without fear of losing data.  Note: the server emulator does not evaluate the `apikey` header.
 
 When a client initiates a chat thread with the server, a "system" participant will join who will provide a periodic message of type "External" to the thread.  In addition, an "agent" participant joins at a random interval shortly thereafter (< 5 seconds).  As each message is submitted from the client, another message is added from the "agent" to the thread using a non-scientific method of evaluating the last character from the client's message and attempting to respond with an appropriate string.
 
