@@ -1,12 +1,6 @@
-# GWS Chat Server Emulator
-
-The following are example client & sample server applications which can be used to emulate the capability of the HTCC e-Services chat server.  Chat threads are persisted to disk and therefore the server can be restarted without fear of losing data.
-
-When a client initiates a chat thread with the server, a "system" participant will join who will provide a periodic message of type "External" to the thread.  In addition, an "agent" participant joins at a random interval shortly thereafter (< 5 seconds).  As each message is submitted from the client, another message is added from the "agent" to the thread using a non-scientific method of evaluating the last character from the client's message and attempting to respond with an appropriate string.
+# GWS Chat Server
 
 ## RESTful API
-
-Presently there is no authentication of any sort on any of the exposed endpoints (no API key, etc).
 
 * [RequestChat](#requestchat)
 * [SendStartTypingNotification](#sendstarttypingnotification)
@@ -306,7 +300,12 @@ GET /api/v2/chats/652492d9-c2d9-44c9-b9ad-0ab7984114bb/messages
 
 ---
 
-## Client / Server
+## Sample Client / Server
+
+The following are example client & sample server applications which can be used to emulate the capability of the HTCC e-Services chat server.  Chat threads are persisted to disk and therefore the server can be restarted without fear of losing data.
+
+When a client initiates a chat thread with the server, a "system" participant will join who will provide a periodic message of type "External" to the thread.  In addition, an "agent" participant joins at a random interval shortly thereafter (< 5 seconds).  As each message is submitted from the client, another message is added from the "agent" to the thread using a non-scientific method of evaluating the last character from the client's message and attempting to respond with an appropriate string.
+
 
 ### Setup
 
