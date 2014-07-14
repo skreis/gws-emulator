@@ -54,7 +54,7 @@ function messageToJSON(message) {
 var app = express();
 app.use(logErrors);
 app.use(errorHandler);
-app.use('/client', express.static('client'));
+app.use('/client', express.static('../client'));
 app.set('port', process.env.PORT || 8888);
 
 app.all('*', function(req, res, next) {
