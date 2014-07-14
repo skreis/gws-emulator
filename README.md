@@ -36,6 +36,8 @@ POST /api/v2/chats
 
 **Example**
 
+`POST /api/v2/chats`
+
 ```json
 {
     "operationName": "RequestChat",
@@ -326,4 +328,4 @@ Once started, two subdirectories will be created `logs` and `chats`.  In them yo
 
 ### Client
 
-Access to the sample web client application can be found by directing your browser to http://localhost:8888/client/
+Access to the sample web client application can be found by directing your browser to [http://localhost:8888/client/](http://localhost:8888/client/)
