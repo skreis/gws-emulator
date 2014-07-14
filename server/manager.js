@@ -5,6 +5,9 @@ var _ = require('underscore'),
     storage = require('node-persist'),
     uuid = require('node-uuid');
 
+// hash of chat id => intervalObject
+var activeTimers = {};
+
 // init persist of chat data
 storage.initSync({
     dir: '../../../chats',
@@ -12,7 +15,8 @@ storage.initSync({
     parse: JSON.parse,
     encoding: 'utf8',
     logging: false,
-    continuous: true,
+    continuous: false,
+    interval: 10
 });
 
 /**
@@ -51,15 +55,16 @@ function appendMessage(chatId, participantId, type, pairs) {
     }
     // construct message
     message = _.extend({
-        "type": type,
-        "from": {
-            "nickname": participant.nickname,
-            "participantId": participantId,
-            "type": participant.type
+        'type': type,
+        'from': {
+            'nickname': participant.nickname,
+            'participantId': participantId,
+            'type': participant.type
         }
     }, pairs);
     chat.messages = chat.messages || [];
     chat.messages.push(message);
+
     storage.setItem(chat.id, chat);
     return true;
 }
@@ -73,9 +78,9 @@ function appendMessage(chatId, participantId, type, pairs) {
  */
 function addParticipant(chat, id, nickname, type) {
     var participant = {
-        "nickname": nickname,
-        "participantId": id,
-        "type": type
+        'nickname': nickname,
+        'participantId': id,
+        'type': type
     };
     chat.participants.push(participant);
     return participant;
@@ -100,22 +105,35 @@ function participantExists(chatId, id) {
  */
 exports.initChat = function(nickname, subject) {
     var chat = {
-        "id": uuid.v4(),
-        "state": '',
-        "nickname": nickname,
-        "subject": subject,
-        "participants": [],
-        "index": 0
+        'id': uuid.v4(),
+        'state': '',
+        'nickname': nickname,
+        'subject': subject,
+        'participants': [],
+        'index': 0
     };
 
-    addParticipant(chat, 1, nickname, "Customer");
+    addParticipant(chat, 1, nickname, 'Customer');
+    addParticipant(chat, 2, 'system', 'External');
+
+    // persist addition of participants
     storage.setItem(chat.id, chat);
-    appendMessage(chat.id, 1, "ParticipantJoined", {});
+
+    // add messages
+    appendMessage(chat.id, 1, 'ParticipantJoined', {});
+    appendMessage(chat.id, 2, 'ParticipantJoined', {});
+
+    // add timer, periodically inserting a message
+    // into the thread until it becomes completed
+    activeTimers[chat.id] = setInterval(function() {
+        appendMessage(chat.id, 2, 'Text', { text: 'Current Time: ' + new Date() });
+    }, 1000 * 20);
 
     // after 1-3 seconds, add an agent participant into the mix
     var delay = 1000 * (Math.floor(Math.random() * 3) + 1);
     setTimeout(function() {
-        addParticipant(chat, 2, "Roboto", "Agent");
+        addParticipant(chat, 3, 'Roboto', 'Agent');
+        appendMessage(chat.id, 3, 'ParticipantJoined', {});
         chat.state = 'Chatting';
         storage.setItem(chat.id, chat);
     }, delay);
@@ -134,18 +152,18 @@ exports.getChat = function(id) {
         return undefined;
     }
     return {
-        "chat": {
-            "capabilities": [
-                "SendMessage",
-                "SendStartTypingNotification",
-                "SendStopTypingNotification",
-                "Complete"
+        'chat': {
+            'capabilities': [
+                'SendMessage',
+                'SendStartTypingNotification',
+                'SendStopTypingNotification',
+                'Complete'
             ],
-            "id": chat.id,
-            "participants": chat.participants,
-            "state": chat.state
+            'id': chat.id,
+            'participants': chat.participants,
+            'state': chat.state
         },
-        "statusCode": 0
+        'statusCode': 0
     };
 };
 
@@ -171,7 +189,7 @@ exports.getTranscript = function(id, index) {
 
     // if the requested index is within the bounds of our
     // thread, slice the message array and return the requested piece
-    if (start < chat.messages.length && start >= 0) {
+    if (chat.messages && start < chat.messages.length && start >= 0) {
         messages = chat.messages.slice(start);
     }
 
@@ -182,8 +200,8 @@ exports.getTranscript = function(id, index) {
     }
 
     return {
-        "messages": messages,
-        "statusCode": 0
+        'messages': messages,
+        'statusCode': 0
     };
 };
 
@@ -195,8 +213,8 @@ exports.sendMessage = function(id, text) {
         text: text
     })) {
 
-        // check if the agent has been added yet...
-        if (!participantExists(id, 2)) {
+        // check if the 'agent' has been added yet...
+        if (!participantExists(id, 3)) {
             return true;
         }
 
@@ -218,10 +236,10 @@ exports.sendMessage = function(id, text) {
                 agentResponse = text + ' to you too!';
         }
 
-        // include "response" from agent
+        // include 'response' from agent
         var delay = Math.floor(Math.random() * 2000);
         setTimeout(function() {
-            appendMessage(id, 2, 'Text', {
+            appendMessage(id, 3, 'Text', {
                 text: agentResponse
             });
         }, delay);
@@ -249,5 +267,7 @@ exports.sendTypingStopNotification = function(id) {
  * Send chat complete to thread from participant
  */
 exports.completeChat = function(id) {
+    clearInterval(activeTimers[id]);
+    delete activeTimers[id];
     return appendMessage(id, 1, 'ParticipantLeft', {});
 };

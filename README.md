@@ -311,8 +311,7 @@ GET /api/v2/chats/652492d9-c2d9-44c9-b9ad-0ab7984114bb/messages
 ### Setup
 
 ```
-$ cd server
-$ npm install
+$ cd server && npm install
 ```
 
 ### Run

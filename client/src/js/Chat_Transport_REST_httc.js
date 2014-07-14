@@ -133,7 +133,7 @@ function Transport_REST_HTTC(oOptions){
 	    	},
 	    	beforeSend: function(xhr){
 
-	            if(contactCenterId)xhr.setRequestHeader('ContactCenterId', contactCenterId);
+	            xhr.setRequestHeader('apikey', 'N18TFGbKpn0zaGLXDFZhPWpTcB2eyx44');
 	        }
 	    });
 

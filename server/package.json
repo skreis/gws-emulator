@@ -13,6 +13,7 @@
         "node": ">=0.8.0"
     },
     "name": "gws-emulator",
-    "url" : "https://github.com/skreis/gws-emulator",
+    "repository" : "https://github.com/skreis/gws-emulator",
+    "readme" : "https://github.com/skreis/gws-emulator/blob/master/README.md",
     "version": "0.1.0"
 }

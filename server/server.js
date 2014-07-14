@@ -6,15 +6,15 @@ var _ = require('underscore'),
     express = require('express'),
     http = require('http'),
     log4js = require('log4js'),
-    manager = require('./manager.js'),
+    manager = require(__dirname + '/manager.js'),
     sprintf = require('sprintf').sprintf;
 
 // create log directory if missing
-if (!fs.existsSync('./logs')) {
-    fs.mkdirSync('./logs');
+if (!fs.existsSync(__dirname + '/logs')) {
+    fs.mkdirSync(__dirname + '/logs');
 }
 // configure log4js
-log4js.configure('log4js.json');
+log4js.configure(__dirname + '/log4js.json');
 var logger = log4js.getLogger('com.genesys.chat');
 
 // catchall error logger
@@ -54,7 +54,7 @@ function messageToJSON(message) {
 var app = express();
 app.use(logErrors);
 app.use(errorHandler);
-app.use('/client', express.static('../client'));
+app.use('/client', express.static(__dirname + '/../client'));
 app.set('port', process.env.PORT || 8888);
 
 app.all('*', function(req, res, next) {
