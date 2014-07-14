@@ -1,0 +1,167 @@
+body{
+
+	font-size:13px;
+	margin:0;
+	background-color:#fbfbfb;
+	background-image: url("images/stripe_light_blue.png");
+	background-repeat: repeat;
+}
+
+.header{
+
+	background-color: #e7eff5;
+	margin-bottom:30px;
+	-webkit-box-shadow: inset 0px 5px 18px 0px #bdd4e6;
+	box-shadow: inset 0px -2px 18px 0px #bdd4e6;
+	border-bottom: 1px dashed #43739c;
+	background-image: url("images/genesys-logo.png");
+	background-repeat: no-repeat;
+	background-position:15px 15px;
+}
+
+.header h1{
+
+	font-size: 41px;
+	margin: 0;
+	padding: 27px;
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color:#43739c;
+	text-align:right;
+}
+
+.ChatUI .form{
+
+}
+
+.column_left{
+
+	height: 100%;
+	margin-left:25px;	
+	float:left;
+}
+
+.column_right{
+
+	height: 100%;
+	margin-left:25px;
+	float:left;
+	width: 600px;
+	padding-top: 30px;
+}
+
+.column_right label{
+
+	display:block;
+	margin-top:5px;
+	display:inline-block;
+	margin-right:50px;
+}
+
+.column_right label > b{
+
+	display:inline-block;
+	width:130px;
+}
+
+.column_right label > label{
+
+	margin-right:25px;
+}
+
+.font-picker > li{
+
+	list-style:none;
+}
+
+.font-picker > li > a{
+
+	text-decoration:none;
+}
+
+.font-picker > li > a:hover{
+
+	text-decoration:underline;
+}
+
+.css-input.slider{
+
+	width: 200px;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.font-list{
+
+	display:none;
+}
+
+.toggle-view{
+
+	font-size:10px;
+}
+
+#embed_script{
+
+	height:750px;
+	width:100%;
+	font-family:"Courier New";
+	font-size:10px;
+}
+
+#customization-tabs{
+
+	-webkit-box-shadow: 2px 2px 9px 0px #ccc;
+	box-shadow: 2px 2px 9px 0px #ccc;
+}
+
+#tab-look-and-feel{
+
+	padding-top:50px;
+}
+
+#css-tabs h3{
+
+	color:#aaa;
+	border-bottom:1px solid #ddd;
+}
+
+.button-footer{
+
+	text-align:right;
+}
+
+.glossary{
+
+
+}
+
+.glossary th{
+
+	text-align:right;
+	white-space:nowrap;
+	width:150px;
+	vertical-align:top;
+	height:20px;
+	padding-right:18px;
+}
+
+
+#css-tabs-a > .ui-tabs-nav{
+
+	margin-top: -36px;
+}
+
+#css-tabs-a-3{
+
+	margin-top: 37px;
+}
+
+.ui-tabs{
+
+	box-shadow: 2px 2px 9px 0px #ccc;
+}
+
+.include-textareas{
+
+	display:none;
+}

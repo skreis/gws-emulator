@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=10"/>
+		<title>Genesys Chat - REST API</title>
+		<link type="text/css" rel="stylesheet" href="src/css/ChatUI.css"/>
+		<link type="text/css" title="chat-ui" rel="stylesheet" href="src/css/config.css"/>
+		<script src="src/js/jquery-1.11.1.min.js"></script>
+		<script src="src/js/ChatAPI_Lite.js"></script>
+		<script src="src/js/Chat_Transport_REST_httc.js"></script>
+		<script src="src/js/Chat_Transport_REST_webapi.js"></script>
+		<script src="src/js/ChatUI.js"></script>
+	</head>
+	<body>
+
+		<h1>Chat - REST API Test</h1>
+
+		<!-- Debug controls -->
+		<button class="chat-control start">Start Chat</button>
+		<button class="chat-control end" DISABLED="DISABLED">End Chat</button>
+		<br/>
+		<!-- start: Template for Chat Widget -->
+		<div id="demo_chat_XYZ" class="ChatUI">
+			<div class="title">Chat Support</div>
+			<div class="form">
+				<label><span>First Name</span><input name="firstname"/></label>
+				<label><span>Last Name</span><input name="lastname"/></label>
+				<label><span>Nickname</span><input name="nickname"/></label>
+				<label><span>Subject</span><input name="subject"/></label>
+				<label><span>Email</span><input name="email"/></label>
+			</div>
+			<div class="transcript"></div>
+			<div class="input-container">
+				<textarea class="input"></textarea>
+			</div>
+			<div class="isTyping"></div>
+		</div>
+		<!-- end: Template for Chat Widget -->
+
+
+		<script>
+
+			// Create instance of chat widget
+
+			// HTTC Transport Version
+			var oChatUI = new GenesysChatUI($, $("#demo_chat_XYZ"),
+
+				Transport_REST_HTTC,
+				{
+					id: "515a4376-ac30-4ed2-801f-a876c0d56c93",
+					dataURL: "http://localhost:8888/api/v2/chats/",
+					context: "demo"
+				}
+			);
+
+			// WebAPI Transport Version
+			/*
+			var oChatUI = new GenesysChatUI($, $("#demo_chat_XYZ"),
+
+				Transport_REST_WebAPI,
+				{
+					id: "101",
+					context: "demo",
+					dataURL: "http://localhost:8080/eservices/api/v2/chats/",
+					userData: {}
+				}
+			);
+			*/
+
+			// Setup debug controls
+			$(".chat-control.start").click(function(){
+
+				oChatUI.startSession();
+				//this.disabled = true;
+				$(".chat-control.end")[0].disabled = false;
+			});
+
+			$(".chat-control.end").click(function(){
+
+				oChatUI.endSession();
+				//this.disabled = true;
+				$(".chat-control.start")[0].disabled = false;
+			});
+
+		</script>
+
+	</body>
+</html>
