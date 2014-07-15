@@ -339,6 +339,24 @@ The following are example client & sample server applications which can be used 
 
 When a client initiates a chat thread with the server, a "system" participant will join who will provide a periodic message of type "External" to the thread.  In addition, an "agent" participant joins at a random interval shortly thereafter (< 5 seconds).  As each message is submitted from the client, another message is added from the "agent" to the thread using a non-scientific method of evaluating the last character from the client's message and attempting to respond with an appropriate string.
 
+### Structure
+
+```
+.
+├── LICENSE
+├── README.md
+├── client
+│   ├── index-apigee.html
+│   ├── index.html
+│   └── src
+├── examples
+│   └── php
+└── server
+    ├── log4js.json
+    ├── manager.js
+    ├── package.json
+    └── server.js
+```
 
 ### Setup
 
