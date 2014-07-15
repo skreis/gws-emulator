@@ -360,3 +360,13 @@ Once started, two subdirectories will be created `logs` and `chats`.  In them yo
 ### Client
 
 Access to the sample web client application can be found by directing your browser to [http://localhost:8888/client/](http://localhost:8888/client/)
+
+
+### Sample Code
+
+There are some samples of api usage in various languages in `examples` folder
+
+
+### Coding Notes
+
+You can code against chat API hosted locally [http://127.0.0.1:8888/api/v2/chats/](http://127.0.0.1:8888/api/v2/chats/) or remotely [http://vladm-prod.apigee.net/chat-key/v2/chats/](http://vladm-prod.apigee.net/chat-key/v2/chats/).  Please notice a minor difference in context of URLs.   Please remember to set apiKey in the Header.
