@@ -9,7 +9,7 @@ You have seen many different Chat Widgets in action on many different websites. 
 ## Ideas
 
 1. Software (tool) for custom chat widget creation.  Think of a WYSIWYG tool that allows one to create a code-snippet which can be used on a website and will serve a chat ui for a visitor to the said website to get help from an agent.  Such tool should allow full customization of variables, fonts, wait time before chat pops up, greetings, logos, images, location of send and get transcripts buttons, logo location, etc.   The team that creates the most creative tool to create widgets with most and easiest to use customization choices could get lots of points awarded.  A ground rule for output of the tool is that a business user (non-programmer, caveat: programmers should be able to use this too) that is a consumer of the software presented can use it to generate the chat widget that they would like the look and functionality of.
-   * Output is a wysiwyg and a widget (javascript, html, css, images, etc).  A completely custom layout should be supported
+   * Output is a WYSIWYG and a widget (javascript, html, css, images, etc).  A completely custom layout should be supported
 1. Integration of Chat API with theUBI.
 1. Chat API in-app integration with some Android, iOS, Windows 8 apps.
 1. Anything else - use your imagination.
