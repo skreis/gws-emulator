@@ -25,7 +25,7 @@ When utilizing the GWS Chat Service, an `apikey` header is required to initiate 
 This operation submits a new chat request for the website visitor / customer. After successfully sending this request to start the chat, you should begin checking for updated state and new messages periodically.
 
 ```
-POST /api/v2/chats
+POST {baseUrl}/v2/chats
 ```
 
 **Parameters**
@@ -66,7 +66,7 @@ POST /api/v2/chats
 This operation notifies the chat that the customer has started typing.
 
 ```
-POST /api/v2/chats/:id
+POST {baseUrl}/v2/chats/:id
 ```
 
 **Parameters**
@@ -100,7 +100,7 @@ POST /api/v2/chats/:id
 This operation notifies the chat that the customer has stopped typing.
 
 ```
-POST /api/v2/chats/:id
+POST {baseUrl}/v2/chats/:id
 ```
 
 **Parameters**
@@ -134,7 +134,7 @@ POST /api/v2/chats/:id
 This requests sends a new text message to the chat.
 
 ```
-POST /api/v2/chats/:id
+POST {baseUrl}/v2/chats/:id
 ```
 
 **Parameters**
@@ -170,7 +170,7 @@ POST /api/v2/chats/:id
 This operation is used to complete the chat. After sending this request, no further requests should be sent for the chat.
 
 ```
-POST /api/v2/chats/:id
+POST {baseUrl}/v2/chats/:id
 ```
 
 **Parameters**
@@ -204,7 +204,7 @@ POST /api/v2/chats/:id
 This request returns the specified chat resource. Send this request periodically to keep state up to date.
 
 ```
-GET /api/v2/chats/:id
+GET {baseUrl}/v2/chats/:id
 ```
 
 **Parameters**
@@ -268,7 +268,7 @@ GET /api/v2/chats/652492d9-c2d9-44c9-b9ad-0ab7984114bb
 Send this request periodically to retrieve new chat messages. By specifying the index parameter, previous messages can be recovered (ex. index=0 will return all messages).
 
 ```
-GET /api/v2/chats/:id/messages
+GET {baseUrl}/v2/chats/:id/messages
 ```
 
 **Parameters**
@@ -387,4 +387,10 @@ There are some samples of api usage in various languages in `examples` folder
 
 ### Coding Notes
 
-You can code against chat API hosted locally [http://127.0.0.1:8888/api/v2/chats/](http://127.0.0.1:8888/api/v2/chats/) or remotely [http://vladm-prod.apigee.net/chat-key/v2/chats/](http://vladm-prod.apigee.net/chat-key/v2/chats/).  Please notice a minor difference in context of URLs.   Please remember to set apiKey in the Header.
+You can code against the Chat API running locally when following the setup & run instructions above or remotely against a hosted instance of the HTCC e-Services chat server by utilizing one of the following `baseUrl` values:
+
+| Local | Remote |
+|:------|:-------|
+| [http://127.0.0.1:8888/api](http://127.0.0.1:8888/api) | [http://vladm-prod.apigee.net/chat-key](http://vladm-prod.apigee.net/chat-key) |
+
+Please notice a minor difference in context of URLs and remember to set the `apikey` header.
